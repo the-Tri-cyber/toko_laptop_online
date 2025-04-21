@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
     <!-- navbar end -->
 
-    <div class="mx-5">
+    <div class="mx-5 mx-auto" style="max-width: 600px;">
         <h1 class="mb-4">Edit Pengguna</h1>
         <form action="#" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="mb-3">
@@ -134,7 +134,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <!-- footer -->
-    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 fixed-bottom">
+    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 sticky-bottom">
         <p>&copy; <?php echo date("Y"); ?> <span class="text-info">Tri Store</span>. All rights reserved.</p>
     </footer>
     <!-- footer end -->

@@ -57,7 +57,7 @@ include '../../config/db.php';
     </nav>
     <!-- navbar end -->
 
-    <div class="mx-5">
+    <div class="mx-5 mx-auto" style="max-width: 600px;">
         <h1 class="mb-4">Tambah Pengguna</h1>
         <form action="tambah_proses.php" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
             <div class="mb-3">
@@ -106,7 +106,7 @@ include '../../config/db.php';
 
 
     <!-- footer -->
-    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 fixed-bottom">
+    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 sticky-bottom">
         <p>&copy; <?php echo date("Y"); ?> <span class="text-info">Tri Store</span>. All rights reserved.</p>
     </footer>
     <!-- footer end -->

@@ -14,7 +14,7 @@ include '../../config/db.php';
 
 <head>
     <link rel="stylesheet" href="../../bootstrap-5/css/bootstrap.min.css">
-    <title>Produk</title>
+    <title>TRANSAKSI</title>
 </head>
 
 <body>
@@ -57,9 +57,9 @@ include '../../config/db.php';
     <!-- navbar end -->
 
     <div class="mx-5">
-        <h1 class="text-center mb-4">Daftar Laptop</h1>
+        <h1 class="text-center mb-4">Daftar Transaksi</h1>
         <div class="d-flex justify-content-evenly">
-            <a href="tambah.php" class="btn btn-primary mb-3">Tambah Laptop</a>
+            <a href="tambah.php" class="btn btn-primary mb-3">Tambah Transaksi</a>
             <form class="d-flex" role="search">
                 <input class="form-control me-2" name="keyword" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success me-2" type="submit">Search</button>
@@ -70,48 +70,60 @@ include '../../config/db.php';
         <table class="table table-info table-hover mb-4">
             <tr class="table-dark text-center">
                 <th>No</th>
-                <th>Nama Laptop</th>
-                <th>Processor</th>
-                <th>Ram</th>
-                <th>Rom</th>
-                <th>GPU</th>
-                <th>Deskripsi</th>
+                <th>ID Laptop</th>
+                <th>ID User</th>
+                <th>Nama Penerima</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Alamat</th>
+                <th>Jumlah</th>
                 <th>Harga</th>
-                <th>Sell Out</th>
-                <th>Stok</th>
-                <th>Terakhir Diupdate</th>
-                <th>Foto</th>
+                <th>Metode Pembayaran</th>
+                <th>Waktu</th>
                 <th>Aksi</th>
             </tr>
             <?php
             $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
-            $sql = "SELECT * FROM produk";
+            $sql = "SELECT * FROM transaksi";
             if (!empty($keyword)) {
-                $sql .= " WHERE nama_laptop LIKE '%$keyword%'";
+                $sql .= " WHERE id_laptop LIKE '%$keyword%' OR 
+                nama_penerima LIKE '%$keyword%' OR 
+                email LIKE '%$keyword%' OR 
+                telepon LIKE '%$keyword%' OR
+                alamat LIKE '%$keyword%'";
             }
-            $sql .= " ORDER BY id_laptop DESC";
+            $sql .= " ORDER BY id_transaksi DESC";
             $result = mysqli_query($conn, $sql);
 
             if ($result->num_rows > 0) {
                 $no = 1;
                 while ($row = $result->fetch_assoc()) {
+                    $id_laptop = $row['id_laptop'];
+                    $laptopQuery = mysqli_query($conn, "SELECT nama_laptop FROM produk WHERE id_laptop='$id_laptop'");
+                    $laptop = mysqli_fetch_assoc($laptopQuery);
+                    $id_user = $row['id_user'];
+                    $userQuery = mysqli_query($conn, "SELECT nama FROM users WHERE id_user='$id_user'");
+                    $user = mysqli_fetch_assoc($userQuery);
             ?>
                     <tr class="text-center align-middle">
                         <td><?php echo $no++ ?></td>
-                        <td><?php echo $row['nama_laptop'] ?></td>
-                        <td><?php echo $row['processor'] ?></td>
-                        <td><?php echo $row['ram'] ?></td>
-                        <td><?php echo $row['rom'] ?></td>
-                        <td><?php echo $row['gpu'] ?></td>
-                        <td style="max-width: 150px;" class="text-truncate"><?php echo $row['deskripsi'] ?></td>
-                        <td>Rp<?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
-                        <td><?php echo $row['laptop_terjual'] ?></td>
-                        <td><?php echo $row['stok'] ?></td>
-                        <td><?php echo $row['terakhir_update'] ?></td>
-                        <td><img src="<?php echo $row['foto']; ?>" alt="Foto Laptop" width="100"></td>
+                        <td data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Nama Laptop: <?php echo $laptop['nama_laptop']; ?>"><?php echo $row['id_laptop'] ?></td>
+                        <td data-bs-toggle="tooltip"
+                            data-bs-placement="top"
+                            title="Nama User: <?php echo $user['nama']; ?>"><?php echo $row['id_user'] ?></td>
+                        <td><?php echo $row['nama_penerima'] ?></td>
+                        <td><?php echo $row['email'] ?></td>
+                        <td><?php echo $row['telepon'] ?></td>
+                        <td><?php echo $row['alamat'] ?></td>
+                        <td><?php echo $row['jumlah'] ?></td>
+                        <td>Rp.<?php echo number_format($row['harga'], 0, ',', '.'); ?></td>
+                        <td><?php echo $row['metode_pembayaran'] ?></td>
+                        <td><?php echo $row['tanggal'] ?></td>
                         <td>
-                            <a href="edit.php?id=<?php echo $row['id_laptop'] ?>" class="btn btn-warning>Edit</a> |
-                            <a href=" hapus.php?id=<?php echo $row['id_laptop'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
+                            <a href="edit.php?id=<?php echo $row['id_transaksi'] ?>" class="btn btn-warning btn-sm">Edit</a> |
+                            <a href="hapus.php?id=<?php echo $row['id_transaksi'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                         </td>
                     </tr>
                 <?php
@@ -119,7 +131,7 @@ include '../../config/db.php';
             } else {
                 ?>
                 <tr>
-                    <td colspan="13">TIDAK ADA DATA!</td>
+                    <td colspan="12">TIDAK ADA DATA!</td>
                 </tr>
             <?php
             }
@@ -135,6 +147,14 @@ include '../../config/db.php';
     <!-- footer end -->
 
     <script src="../../bootstrap-5/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Inisialisasi tooltip Bootstrap
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        })
+    </script>
 </body>
 
 </html>

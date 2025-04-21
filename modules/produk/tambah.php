@@ -16,7 +16,7 @@ include '../../config/db.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap-5/css/bootstrap.min.css">
-    <title>Tambah Pengguna</title>
+    <title>Tambah Laptop</title>
 </head>
 
 <body>
@@ -57,48 +57,79 @@ include '../../config/db.php';
     </nav>
     <!-- navbar end -->
 
-    <div class="mx-5">
-        <h1 class="mb-4">Tambah Pengguna</h1>
+    <div class="mx-5 mb-4 mx-auto" style="max-width: 600px;">
+        <h1 class="mb-4">Tambah Laptop</h1>
         <form action="tambah_proses.php" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+            <!-- Nama Laptop -->
             <div class="mb-3">
-                <label for="nama" class="form-label">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" required>
-                <div class="invalid-feedback">Nama harus diisi.</div>
+                <label for="nama_laptop" class="form-label">Nama Laptop:</label>
+                <input type="text" class="form-control" id="nama_laptop" name="nama_laptop" required>
+                <div class="invalid-feedback">Nama Laptop harus diisi.</div>
             </div>
 
+            <!-- Processor Laptop -->
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-                <div class="invalid-feedback">Email harus diisi.</div>
+                <label for="processor" class="form-label">Processor:</label>
+                <input type="text" class="form-control" id="processor" name="processor" required placeholder="(Contoh: Intel Core i5-7600U)">
+                <div class="invalid-feedback">Processor harus diisi.</div>
             </div>
 
+            <!-- RAM Laptop -->
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-                <div class="invalid-feedback">Password harus diisi.</div>
+                <label for="ram" class="form-label">RAM:</label>
+                <input type="text" class="form-control" id="ram" name="ram" required placeholder="(Contoh: 4gb DDR5)">
+                <div class="invalid-feedback">RAM harus diisi.</div>
             </div>
 
+            <!-- ROM Laptop -->
             <div class="mb-3">
-                <label for="telepon" class="form-label">Telepon:</label>
-                <input type="text" class="form-control" id="telepon" name="telepon" required>
-                <div class="invalid-feedback">Telepon harus diisi.</div>
+                <label for="rom" class="form-label">ROM:</label>
+                <input type="text" class="form-control" id="rom" name="rom" required placeholder="(Contoh: 256gb SSD)">
+                <div class="invalid-feedback">ROM harus diisi.</div>
             </div>
 
+            <!-- GPU Laptop -->
             <div class="mb-3">
-                <label for="alamat" class="form-label">Alamat:</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" required>
-                <div class="invalid-feedback">Alamat harus diisi.</div>
+                <label for="gpu" class="form-label">GPU:</label>
+                <input type="text" class="form-control" id="gpu" name="gpu" required placeholder="(Contoh: Intel UHD Graphics 600)">
+                <div class="invalid-feedback">GPU harus diisi.</div>
             </div>
 
+            <!-- Deskripsi Laptop -->
             <div class="mb-3">
-                <label for="role" class="form-label">Role:</label>
-                <select class="form-select" id="role" name="role" required>
-                    <option value="admin">Admin</option>
-                    <option value="user">User </option>
-                </select>
-                <div class="invalid-feedback">Role harus diisi.</div>
+                <label for="deskripsi" class="form-label">Deskripsi:</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" required></textarea>
+                <div class="invalid-feedback">Deskripsi harus diisi.</div>
             </div>
 
+            <!-- Harga Laptop -->
+            <div class="mb-3">
+                <label for="harga" class="form-label">Harga:</label>
+                <input type="number" class="form-control" id="harga" name="harga" required>
+                <div class="invalid-feedback">Harga harus diisi.</div>
+            </div>
+
+            <!-- Laptop Terjual -->
+            <div class="mb-3">
+                <label for="laptop_terjual" class="form-label">Laptop Terjual:</label>
+                <input type="number" class="form-control" id="laptop_terjual" name="laptop_terjual" required>
+                <div class="invalid-feedback">Jumlah Laptop Terjual harus diisi.</div>
+            </div>
+
+            <!-- Stok Laptop -->
+            <div class="mb-3">
+                <label for="stok" class="form-label">Stok:</label>
+                <input type="number" class="form-control" id="stok" name="stok" required>
+                <div class="invalid-feedback">Stok harus diisi.</div>
+            </div>
+
+            <!-- Foto Laptop -->
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto:</label>
+                <input type="text" class="form-control" id="foto" placeholder="(ambil link online seperti di Google)" name="foto">
+            </div>
+
+            <!-- Button Submit -->
             <button type="submit" class="btn btn-primary">Tambah</button>
             <a href="index.php" class="btn btn-secondary">Kembali</a>
         </form>
@@ -106,7 +137,7 @@ include '../../config/db.php';
 
 
     <!-- footer -->
-    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 fixed-bottom">
+    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 sticky-bottom">
         <p>&copy; <?php echo date("Y"); ?> <span class="text-info">Tri Store</span>. All rights reserved.</p>
     </footer>
     <!-- footer end -->

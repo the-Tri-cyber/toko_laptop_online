@@ -91,8 +91,8 @@ include '../../config/db.php';
                         <td><?php echo $row['tanggal_daftar'] ?></td>
                         <td><?php echo $row['role'] ?></td>
                         <td>
-                            <a href="edit.php?id=<?php echo $row['id_user'] ?>">Edit</a> |
-                            <a href="hapus.php?id=<?php echo $row['id_user'] ?>">Hapus</a>
+                            <a href="edit.php?id=<?php echo $row['id_user'] ?>" class="btn btn-warning>Edit</a> |
+                            <a href=" hapus.php?id=<?php echo $row['id_user'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">Hapus</a>
                         </td>
                     </tr>
                 <?php

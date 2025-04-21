@@ -10,22 +10,27 @@ if (!in_array($_SESSION['role'], ['admin'])) {
 include '../../config/db.php';
 
 $id = $_GET['id'];
-$sql = "SELECT * FROM users WHERE id_user='$id'";
+$sql = "SELECT * FROM produk WHERE id_laptop='$id'";
 $result = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($result);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $nama = mysqli_real_escape_string($conn, $_POST['nama']);
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $telepon = mysqli_real_escape_string($conn, $_POST['telepon']);
-    $alamat = mysqli_real_escape_string($conn, $_POST['alamat']);
-    $role = mysqli_real_escape_string($conn, $_POST['role']);
+    $nama_laptop = mysqli_real_escape_string($conn, $_POST['nama_laptop']);
+    $processor = mysqli_real_escape_string($conn, $_POST['processor']);
+    $ram = mysqli_real_escape_string($conn, $_POST['ram']);
+    $rom = mysqli_real_escape_string($conn, $_POST['rom']);
+    $gpu = mysqli_real_escape_string($conn, $_POST['gpu']);
+    $deskripsi = mysqli_real_escape_string($conn, $_POST['deskripsi']);
+    $harga = mysqli_real_escape_string($conn, $_POST['harga']);
+    $laptop_terjual = mysqli_real_escape_string($conn, $_POST['laptop_terjual']);
+    $stok = mysqli_real_escape_string($conn, $_POST['stok']);
+    $foto = $_POST['foto'] ? mysqli_real_escape_string($conn, $_POST['foto']) : $row['foto'];
 
     if (!empty($_POST['password'])) {
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $sql = "UPDATE users SET nama='$nama', email='$email', password='$password', telepon='$telepon', alamat='$alamat', role='$role' WHERE id_user='$id'";
+        $sql = "UPDATE produk SET nama_laptop='$nama_laptop', processor='$processor', password='$password', ram='$ram', rom='$rom', gpu='$gpu', deskripsi='$deskripsi', harga='$harga', laptop_terjual='$laptop_terjual', stok='$stok', foto='$foto' WHERE id_laptop='$id'";
     } else {
-        $sql = "UPDATE users SET nama='$nama', email='$email', telepon='$telepon', alamat='$alamat', role='$role' WHERE id_user='$id'";
+        $sql = "UPDATE produk SET nama_laptop='$nama_laptop', processor='$processor', ram='$ram', rom='$rom', gpu='$gpu', deskripsi='$deskripsi', harga='$harga', laptop_terjual='$laptop_terjual', stok='$stok', foto='$foto' WHERE id_laptop='$id'";
     }
 
     if (mysqli_query($conn, $sql)) {
@@ -45,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../bootstrap-5/css/bootstrap.min.css">
-    <title>Edit Pengguna</title>
+    <title>Edit Laptop</title>
 </head>
 
 <body>
@@ -86,55 +91,97 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </nav>
     <!-- navbar end -->
 
-    <div class="mx-5">
-        <h1 class="mb-4">Edit Pengguna</h1>
+    <div class="mx-5 my-4 mx-auto" style="max-width: 600px;">
+        <h1 class="mb-4">Edit Laptop</h1>
         <form action="#" method="POST" class="needs-validation" enctype="multipart/form-data" novalidate>
+
+            <!-- Nama Laptop -->
             <div class="mb-3">
-                <label for="nama" class="form-label">Nama:</label>
-                <input type="text" class="form-control" id="nama" name="nama" value="<?php echo $row['nama']; ?>" required>
-                <div class="invalid-feedback">Nama harus diisi.</div>
+                <label for="nama_laptop" class="form-label">Nama Laptop:</label>
+                <input type="text" class="form-control" id="nama_laptop" name="nama_laptop" value="<?php echo $row['nama_laptop']; ?>" required>
+                <div class="invalid-feedback">Nama Laptop harus diisi.</div>
             </div>
 
+            <!-- Processor Laptop -->
             <div class="mb-3">
-                <label for="email" class="form-label">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" value="<?php echo $row['email']; ?>" required>
-                <div class="invalid-feedback">Email harus diisi.</div>
+                <label for="processor" class="form-label">Processor:</label>
+                <input type="text" class="form-control" id="processor" name="processor" value="<?php echo $row['processor']; ?>" required>
+                <div class="invalid-feedback">Processor harus diisi.</div>
             </div>
 
+            <!-- RAM Laptop -->
             <div class="mb-3">
-                <label for="password" class="form-label">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" placeholder="(kosongkan jika tidak ingin diisi)" required>
+                <label for="ram" class="form-label">RAM:</label>
+                <input type="text" class="form-control" id="ram" name="ram" value="<?php echo $row['ram']; ?>" required>
+                <div class="invalid-feedback">RAM harus diisi.</div>
             </div>
 
+            <!-- ROM Laptop -->
             <div class="mb-3">
-                <label for="telepon" class="form-label">Telepon:</label>
-                <input type="text" class="form-control" id="telepon" name="telepon" value="<?php echo $row['telepon']; ?>" required>
-                <div class="invalid-feedback">Telepon harus diisi.</div>
+                <label for="rom" class="form-label">ROM:</label>
+                <input type="text" class="form-control" id="rom" name="rom" value="<?php echo $row['rom']; ?>" required>
+                <div class="invalid-feedback">ROM harus diisi.</div>
             </div>
 
+            <!-- GPU Laptop -->
             <div class="mb-3">
-                <label for="alamat" class="form-label">Alamat:</label>
-                <input type="text" class="form-control" id="alamat" name="alamat" value="<?php echo $row['alamat']; ?>" required>
-                <div class="invalid-feedback">Alamat harus diisi.</div>
+                <label for="gpu" class="form-label">GPU:</label>
+                <input type="text" class="form-control" id="gpu" name="gpu" value="<?php echo $row['gpu']; ?>" required>
+                <div class="invalid-feedback">GPU harus diisi.</div>
             </div>
 
+            <!-- Deskripsi Laptop -->
             <div class="mb-3">
-                <label for="role" class="form-label">Role:</label>
-                <select class="form-select" id="role" name="role" required>
-                    <option value="admin" value="<?php echo ($row['role'] == 'admin') ? 'selected' : ''; ?>">Admin</option>
-                    <option value="user" value="<?php echo ($row['role'] == 'user') ? 'selected' : ''; ?>">User </option>
-                </select>
-                <div class="invalid-feedback">Role harus diisi.</div>
+                <label for="deskripsi" class="form-label">Deskripsi:</label>
+                <textarea class="form-control" id="deskripsi" name="deskripsi" required><?php echo $row['deskripsi']; ?></textarea>
+                <div class="invalid-feedback">Deskripsi harus diisi.</div>
             </div>
 
+            <!-- Harga Laptop -->
+            <div class="mb-3">
+                <label for="harga" class="form-label">Harga:</label>
+                <input type="number" class="form-control" id="harga" name="harga" value="<?php echo $row['harga']; ?>" required>
+                <div class="invalid-feedback">Harga harus diisi.</div>
+            </div>
+
+            <!-- Laptop Terjual -->
+            <div class="mb-3">
+                <label for="laptop_terjual" class="form-label">Laptop Terjual:</label>
+                <input type="number" class="form-control" id="laptop_terjual" name="laptop_terjual" value="<?php echo $row['laptop_terjual']; ?>" required>
+                <div class="invalid-feedback">Jumlah Laptop Terjual harus diisi.</div>
+            </div>
+
+            <!-- Stok Laptop -->
+            <div class="mb-3">
+                <label for="stok" class="form-label">Stok:</label>
+                <input type="number" class="form-control" id="stok" name="stok" value="<?php echo $row['stok']; ?>" required>
+                <div class="invalid-feedback">Stok harus diisi.</div>
+            </div>
+
+            <!-- Terakhir Update -->
+            <div class="mb-3">
+                <label for="terakhir_update" class="form-label">Terakhir Update:</label>
+                <input type="text" class="form-control" id="terakhir_update" name="terakhir_update" value="<?php echo $row['terakhir_update']; ?>" required>
+                <div class="invalid-feedback">Terakhir Update harus diisi.</div>
+            </div>
+
+            <!-- Foto Laptop -->
+            <div class="mb-3">
+                <label for="foto" class="form-label">Foto:</label>
+                <img src="<?php echo $row['foto']; ?>" alt="Foto Laptop" width="100" class="mt-2">
+                <input type="text" class="form-control" id="foto" placeholder="(ambil link dari google jika ingin diubah)" name="foto">
+            </div>
+
+            <!-- Button Submit -->
             <button type="submit" class="btn btn-primary">Update</button>
             <a href="index.php" class="btn btn-secondary">Kembali</a>
         </form>
     </div>
 
 
+
     <!-- footer -->
-    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 fixed-bottom">
+    <footer class="bottom-0 bg-dark text-white text-center justify-content-center py-2 sticky-bottom">
         <p>&copy; <?php echo date("Y"); ?> <span class="text-info">Tri Store</span>. All rights reserved.</p>
     </footer>
     <!-- footer end -->

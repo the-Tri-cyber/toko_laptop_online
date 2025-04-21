@@ -11,7 +11,7 @@ include '../../config/db.php';
 
 
 $id = $_GET['id'];
-$sql = "DELETE FROM produk WHERE id_laptop='$id'";
+$sql = "DELETE FROM transaksi WHERE id_transaksi='$id'";
 
 if (mysqli_query($conn, $sql)) {
     header("Location: index.php");
